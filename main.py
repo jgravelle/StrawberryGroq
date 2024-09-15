@@ -26,7 +26,7 @@ def generate_response(prompt: str, use_cot: bool) -> str:
         return groq.generate(prompt, temperature=0)
 
 def main():
-    st.title("Groqberry Chat DEMO")
+    st.title("Strawberry Groq DEMO")
     st.write("This is a simple chain of thought demonstration modeled on OpenAI's o1 LLM.")
     st.info("Written by Strawberry, powered by [PocketGroq™](https://github.com/jgravelle/pocketgroq)")
     
