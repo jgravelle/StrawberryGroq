@@ -2,6 +2,8 @@
 
 Strawberry Groq is a streamlined demo application showcasing the power of chain of thought reasoning using PocketGroq. Experience the advanced capabilities of Groq's language models, enhanced by reasoning techniques inspired by OpenAI's "Strawberry" o1 LLM.
 
+![gg3](https://github.com/user-attachments/assets/17fc2f50-566c-40f2-92e1-81846cc6fe75)
+
 ## Features
 
 - **Chain of Thought Reasoning**: Toggle between standard responses and detailed step-by-step problem-solving.
