@@ -3,3 +3,4 @@ pocketgroq==0.3.3
 python-dotenv==0.19.1
 pillow==10.4.0
 beautifulsoup4==4.12.3
+requests==2.31.0
