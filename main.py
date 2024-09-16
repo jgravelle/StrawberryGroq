@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 import requests
 from pocketgroq import GroqProvider
 
@@ -41,11 +40,15 @@ def generate_response(prompt: str, use_cot: bool, model: str) -> str:
     if not groq:
         return "Error: No API key provided."
     
+    # Include chat history in the prompt
+    history = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages])
+    full_prompt = f"{history}\nUser: {prompt}"
+    
     if use_cot:
-        cot_prompt = f"Solve the following problem step by step, showing your reasoning:\n\n{prompt}\n\nSolution:"
+        cot_prompt = f"Solve the following problem step by step, showing your reasoning:\n\n{full_prompt}\n\nSolution:"
         return groq.generate(cot_prompt, max_tokens=1000, temperature=0, model=model)
     else:
-        return groq.generate(prompt, temperature=0, model=model)
+        return groq.generate(full_prompt, temperature=0, model=model)
 
 def on_model_change():
     st.session_state.selected_model = st.session_state.model_selectbox
