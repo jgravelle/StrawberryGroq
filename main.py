@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
-from pocketgroq import GroqProvider, AutonomousAgent
+from pocketgroq import GroqProvider
+from pocketgroq.autonomous_agent import AutonomousAgent
 
 # Initialize session state
 if 'messages' not in st.session_state:
