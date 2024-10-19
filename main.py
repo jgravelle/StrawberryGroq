@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from pocketgroq import GroqProvider
+from pocketgroq import GroqProvider, AutonomousAgent
 
 # Initialize session state
 if 'messages' not in st.session_state:
@@ -45,8 +45,18 @@ def generate_response(prompt: str, use_cot: bool, model: str) -> str:
     full_prompt = f"{history}\nUser: {prompt}"
     
     if use_cot:
+        agent = AutonomousAgent(groq, max_sources=3, model=model)
         cot_prompt = f"Solve the following problem step by step, showing your reasoning:\n\n{full_prompt}\n\nSolution:"
-        return groq.generate(cot_prompt, max_tokens=1000, temperature=0, model=model)
+        
+        steps = []
+        for step in agent.process_request(cot_prompt):
+            if step['type'] == 'research':
+                st.write(f"Research: {step['content']}")
+            elif step['type'] == 'response':
+                steps.append(step['content'])
+        
+        # Combine steps into a single response
+        return "\n".join(steps)
     else:
         return groq.generate(full_prompt, temperature=0, model=model)
 
@@ -55,7 +65,7 @@ def on_model_change():
 
 def main():
     st.title("Strawberry Groq DEMO")
-    st.write("This is a simple demo of the PocketGroq library's new 'Chain of Thought' functionality.")
+    st.write("This is a simple demo of the PocketGroq library's enhanced 'Chain of Thought' functionality with Autonomous Agent.")
     st.write("<a href='https://github.com/jgravelle/pocketgroq'>https://github.com/jgravelle/pocketgroq</a> |    <a href='https://www.youtube.com/watch?v=S5dY0DG-q-U'>https://www.youtube.com/watch?v=S5dY0DG-q-U</a>", unsafe_allow_html=True)
 
     # API Key input
@@ -77,7 +87,7 @@ def main():
     st.write(f"Current model: {st.session_state.selected_model}")
     
     # CoT toggle
-    use_cot = st.checkbox("Use Chain of Thought")
+    use_cot = st.checkbox("Use Chain of Thought with Autonomous Agent")
     
     # Display chat messages
     for message in st.session_state.messages:
@@ -92,7 +102,7 @@ def main():
         
         with st.chat_message("assistant"):
             if use_cot:
-                st.write("Thinking step-by-step...")
+                st.write("Thinking step-by-step with autonomous research...")
             
             response = generate_response(prompt, use_cot, st.session_state.selected_model)
             st.write(response)
