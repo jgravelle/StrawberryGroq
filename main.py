@@ -50,7 +50,7 @@ def generate_response(prompt: str, use_cot: bool, model: str) -> str:
         cot_prompt = f"Solve the following problem step by step, showing your reasoning:\n\n{full_prompt}\n\nSolution:"
         
         steps = []
-        for step in agent.process_request(cot_prompt, 25):
+        for step in agent.process_request(cot_prompt, 25, true):
             if step['type'] == 'research':
                 st.write(f"Research: {step['content']}")
             elif step['type'] == 'response':
