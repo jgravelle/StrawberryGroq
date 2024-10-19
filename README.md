@@ -1,4 +1,4 @@
-# Strawberry Groq 2.1
+# Strawberry Groq 2.0
 Strawberry Groq is a streamlined demo application showcasing the power of enhanced chain of thought reasoning using PocketGroq. Experience the advanced capabilities of Groq's language models, elevated by autonomous agent-powered reasoning techniques inspired by OpenAI's "Strawberry" o1 LLM.
 
 ![image](https://github.com/user-attachments/assets/8b59bc89-8436-4aa5-9903-96f2687e8446)
