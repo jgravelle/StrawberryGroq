@@ -46,7 +46,7 @@ def generate_response(prompt: str, use_cot: bool, model: str) -> str:
     full_prompt = f"{history}\nUser: {prompt}"
     
     if use_cot:
-        agent = AutonomousAgent(groq, max_sources=3, model=model)
+        agent = AutonomousAgent(groq, max_sources=25, model=model)
         cot_prompt = f"Solve the following problem step by step, showing your reasoning:\n\n{full_prompt}\n\nSolution:"
         
         steps = []
